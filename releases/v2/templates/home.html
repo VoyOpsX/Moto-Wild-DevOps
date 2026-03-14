@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MotoWild Gallery v2</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: white;
+            text-align: center;
+        }
+
+        h1 {
+            padding: 40px 0;
+        }
+
+        .cards {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: #111827;
+            padding: 40px;
+            border-radius: 15px;
+            width: 250px;
+            transition: 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            background: #1f2937;
+        }
+
+        .icon {
+            font-size: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>🚀 MotoWild Gallery</h1>
+
+<div class="cards">
+    <a href="/gallery/motoglimpse" class="card">
+        <div class="icon">🏍</div>
+        <h2>MotoGlimpse</h2>
+        <p>Explore Bike Media</p>
+    </a>
+
+    <a href="/gallery/wildography" class="card">
+        <div class="icon">🦁</div>
+        <h2>Wildography</h2>
+        <p>Explore Wildlife Media</p>
+    </a>
+</div>
+
+</body>
+</html>
