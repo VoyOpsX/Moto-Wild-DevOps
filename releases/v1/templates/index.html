@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MotoWild Gallery</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #0f172a;
+            color: white;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .section {
+            margin-top: 40px;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .moto {
+            background: #1e3a8a;
+        }
+
+        .wild {
+            background: #166534;
+        }
+
+        img {
+            height: 150px;
+            margin: 10px;
+            border-radius: 8px;
+        }
+
+        input {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>📸 MotoWild Gallery</h1>
+
+<div class="section moto">
+    <h2>🏍 MotoGlimpse</h2>
+
+    <form action="/upload/moto" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <button type="submit">Upload</button>
+    </form>
+
+    <div>
+        {% for image in moto_images %}
+            <img src="/uploads/motoglimpse/{{image}}">
+        {% endfor %}
+    </div>
+</div>
+
+<div class="section wild">
+    <h2>🦁 Wildography</h2>
+
+    <form action="/upload/wild" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <button type="submit">Upload</button>
+    </form>
+
+    <div>
+        {% for image in wild_images %}
+            <img src="/uploads/wildography/{{image}}">
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>
