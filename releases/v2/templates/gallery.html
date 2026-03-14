@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{category}} - MotoWild</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: #0f172a;
+            color: white;
+        }
+
+        header {
+            padding: 20px;
+            text-align: center;
+            background: #111827;
+        }
+
+        a.back {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+            padding: 30px 0;
+        }
+
+        .upload-box {
+            background: #1f2937;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 6px;
+            border: none;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 8px 15px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: #111827;
+            padding: 15px;
+            border-radius: 12px;
+        }
+
+        img, video {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .delete-btn { background: #dc2626; color: white; }
+        .edit-btn { background: #f59e0b; }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h2>{{category | capitalize}}</h2>
+    <a href="/" class="back">⬅ Back to Home</a>
+</header>
+
+<div class="container">
+
+    <div class="upload-box">
+        <form action="/upload/{{category}}" method="POST" enctype="multipart/form-data">
+            <input type="text" name="title" placeholder="Title" required>
+            <textarea name="description" placeholder="Description..." required></textarea>
+            <input type="file" name="file" required>
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+
+    <div class="grid">
+        {% for item in items %}
+        <div class="card">
+
+            {% if item.type in ["mp4","mov","webm"] %}
+                <video controls>
+                    <source src="/uploads/{{category}}/{{item.filename}}">
+                </video>
+            {% else %}
+                <img src="/uploads/{{category}}/{{item.filename}}">
+            {% endif %}
+
+            <h4>{{item.title}}</h4>
+            <p>{{item.description}}</p>
+
+            <a href="/delete/{{category}}/{{item.filename}}">
+                <button class="delete-btn">Delete</button>
+            </a>
+
+            <form action="/edit/{{category}}/{{item.filename}}" method="POST">
+                <input type="text" name="title" value="{{item.title}}" required>
+                <textarea name="description" required>{{item.description}}</textarea>
+                <button class="edit-btn">Save Edit</button>
+            </form>
+
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+</body>
+</html>
