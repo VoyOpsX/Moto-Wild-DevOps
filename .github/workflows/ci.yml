@@ -28,7 +28,7 @@ jobs:
 
     - name: Build Docker Image
       run: |
-        docker build -t $IMAGE_NAME:$VERSION -f releases/v1/Dockerfile .
+        docker build -t $IMAGE_NAME:$VERSION -f releases/v1/Dockerfile releases/v1
 
     - name: Push Docker Image
       run: |
