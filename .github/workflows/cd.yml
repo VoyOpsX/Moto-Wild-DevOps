@@ -1,1 +1,35 @@
+name: CD Pipeline
 
+on:
+  workflow_run:
+    workflows: ["CI Pipeline"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout Repo
+      uses: actions/checkout@v3
+
+    - name: Authenticate to GCP
+      uses: google-github-actions/auth@v2
+      with:
+        workload_identity_provider: ${{ secrets.GCP_WORKLOAD_PROVIDER }}
+        service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+    - name: Setup GCloud
+      uses: google-github-actions/setup-gcloud@v1
+
+    - name: Get GKE Credentials
+      run: |
+        gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER }} \
+        --zone ${{ secrets.GKE_ZONE }} \
+        --project ${{ secrets.GKE_PROJECT }}
+
+    - name: Deploy to Kubernetes
+      run: |
+        kubectl apply -f k8s/v1/
