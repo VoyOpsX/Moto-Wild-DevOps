@@ -42,4 +42,5 @@ jobs:
       env:
         USE_GKE_GCLOUD_AUTH_PLUGIN: 'true'
       run: |
+        kubectl apply -f k8s/v1/namespace.yaml
         kubectl apply -f k8s/v1/
