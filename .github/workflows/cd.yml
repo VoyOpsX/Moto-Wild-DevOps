@@ -27,13 +27,19 @@ jobs:
 
     - name: Setup GCloud
       uses: google-github-actions/setup-gcloud@v1
+      with:
+        install_components: 'gke-gcloud-auth-plugin'
 
     - name: Get GKE Credentials
+      env:
+        USE_GKE_GCLOUD_AUTH_PLUGIN: 'true'
       run: |
         gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER }} \
         --zone ${{ secrets.GKE_ZONE }} \
         --project ${{ secrets.GCP_PROJECT_ID }}
 
     - name: Deploy to Kubernetes
+      env:
+        USE_GKE_GCLOUD_AUTH_PLUGIN: 'true'
       run: |
         kubectl apply -f k8s/v1/
